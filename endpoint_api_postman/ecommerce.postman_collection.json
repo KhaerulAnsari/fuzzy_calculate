@@ -1,0 +1,979 @@
+{
+	"info": {
+		"_postman_id": "f1a025d7-9e6b-4ecb-b6fa-e0aecefa28ba",
+		"name": "Ecommerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17439207"
+	},
+	"item": [
+		{
+			"name": "ecommerce",
+			"item": [
+				{
+					"name": "user",
+					"item": [
+						{
+							"name": "Me",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc1ODUwMjQyMiwiZXhwIjoxNzU4NTA2MDIyfQ.HO9awdgPKLaAzrumka-syszhuhWKOzaciptheVwJ76g"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SignUp",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\" : \"test\",\n    \"email\" : \"test1@gmail.com\",\n    \"password\" : \"password123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test@gmail.com\",\n    \"password\" : \"password123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get List User",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTc1ODc2Mzg3NCwiZXhwIjoxNzU4NzY3NDc0fQ.3h9AooYXNBZjQgl-YGoaJxcTwtLau3-cFKHxWwa63E8"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get User byId",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTc1ODc2Mzg3NCwiZXhwIjoxNzU4NzY3NDc0fQ.3h9AooYXNBZjQgl-YGoaJxcTwtLau3-cFKHxWwa63E8"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update role user",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTc1ODc2Mzg3NCwiZXhwIjoxNzU4NzY3NDc0fQ.3h9AooYXNBZjQgl-YGoaJxcTwtLau3-cFKHxWwa63E8"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"role\" : \"ADMIN\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090"
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "product",
+					"item": [
+						{
+							"name": "Create Product",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTc1ODU0NjMyMiwiZXhwIjoxNzU4NTQ5OTIyfQ.7MltiXYSEmETYgdKQ7rhUsWWPvBBbssiu6Yq-J-SFYY"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\n    \"name\" : \"Orange Water 7\",\n    \"description\" : \"Orange Water Mixfruit 7\",\n    \"tags\" : [\"Orangwater 7\", \"Afrika 7\"],\n    \"price\" : \"700\"\n }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090?=",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"query": [
+										{
+											"key": "",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Product",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTc1ODc4NjU1MSwiZXhwIjoxNzU4NzkwMTUxfQ.E1nq365Kb8HbPkSPzR-Q2jNbfpD6yt4nkw-vFtchp9Q"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {\n    \"name\" : \"Orange Water\"\n }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Product",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTc1ODU0NjMyMiwiZXhwIjoxNzU4NTQ5OTIyfQ.7MltiXYSEmETYgdKQ7rhUsWWPvBBbssiu6Yq-J-SFYY"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090?skip=8",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"query": [
+										{
+											"key": "skip",
+											"value": "8"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Product byId",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTc1ODU0NjMyMiwiZXhwIjoxNzU4NTQ5OTIyfQ.7MltiXYSEmETYgdKQ7rhUsWWPvBBbssiu6Yq-J-SFYY"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Product byId",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTc1ODU0NjMyMiwiZXhwIjoxNzU4NTQ5OTIyfQ.7MltiXYSEmETYgdKQ7rhUsWWPvBBbssiu6Yq-J-SFYY"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Search Product",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlhdCI6MTc1ODc4NjIxMSwiZXhwIjoxNzU4Nzg5ODExfQ.vXZ6HJAtUO9rlzlXtD_dEUXoLXdnp3TXB2saZDCb7CI"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090?q=amerika",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"query": [
+										{
+											"key": "q",
+											"value": "amerika"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "address",
+					"item": [
+						{
+							"name": "Create Address",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlhdCI6MTc1ODc1MjU4MiwiZXhwIjoxNzU4NzU2MTgyfQ.pekbuzAvxhR3TpuHw3WZ8KtqK8DhQMd1v7sFvkcrrWo"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"lineOne\": \"Polo Mas Timur 31\",\n   \"lineTwo\": \"Blok 5D No 31\",\n   \"city\": \"Jakarta Barat 31\",\n   \"country\": \"Indonesia 31\",\n   \"pincode\" : \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlhdCI6MTc1ODc1MjU4MiwiZXhwIjoxNzU4NzU2MTgyfQ.pekbuzAvxhR3TpuHw3WZ8KtqK8DhQMd1v7sFvkcrrWo"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"defaultShippingAddress\" : 13\n \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Address",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlhdCI6MTc1ODYxOTY5NywiZXhwIjoxNzU4NjIzMjk3fQ.udAVnNcPpRo6elMs-ogX9i0M57ziAMlG-DTXA-RHnCk"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Address",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTc1ODYxOTY3MSwiZXhwIjoxNzU4NjIzMjcxfQ.PvwyJG-4EHi2MT08hNQkplLHJCoySWyWetjhabtQat8"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Address Copy",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTc1ODYxMjI4NywiZXhwIjoxNzU4NjE1ODg3fQ.4gpL5uVs1hTpTlU_rMYxsw68PJFaBs9bshquDWQuoYs"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"lineOne\": \"Jalan Kunir 1\",\n   \"lineTwo\": \"No 155 1\",\n   \"city\": \"Depok 1\",\n   \"country\": \"Indonesia 1\",\n   \"pincode\" : \"123456 1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090"
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "cart",
+					"item": [
+						{
+							"name": "Add Cart",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlhdCI6MTc1ODY0NjE3MiwiZXhwIjoxNzU4NjQ5NzcyfQ.udMymjkzzgqpjbimTqzcZbldiTwmeN3eD3GcQxkgUjk"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"productId\" : 1,\n    \"quantity\" : 88\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Cart",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlhdCI6MTc1ODY0NjE3MiwiZXhwIjoxNzU4NjQ5NzcyfQ.udMymjkzzgqpjbimTqzcZbldiTwmeN3eD3GcQxkgUjk"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"productId\" : 11,\n    \"quantity\" : 4\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Cart",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTc1ODY0MzYxOSwiZXhwIjoxNzU4NjQ3MjE5fQ.PtkUUdVfBpQXY87ubVoraTbIC6mGrOsxTaqHr-Jv1cw"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Quantity",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlhdCI6MTc1ODY0NjE3MiwiZXhwIjoxNzU4NjQ5NzcyfQ.udMymjkzzgqpjbimTqzcZbldiTwmeN3eD3GcQxkgUjk"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"quantity\": 99\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090"
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "order",
+					"item": [
+						{
+							"name": "Add Order",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTc1ODc2NjQyMCwiZXhwIjoxNzU4NzcwMDIwfQ.QOej-xOBTI-mZJQ1NYfkEh9ou_1eyP-J_Mogt4OsVdc"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Order",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlhdCI6MTc1ODc1MjU4MiwiZXhwIjoxNzU4NzU2MTgyfQ.pekbuzAvxhR3TpuHw3WZ8KtqK8DhQMd1v7sFvkcrrWo"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get OrderById",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlhdCI6MTc1ODc1MjU4MiwiZXhwIjoxNzU4NzU2MTgyfQ.pekbuzAvxhR3TpuHw3WZ8KtqK8DhQMd1v7sFvkcrrWo"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cancel Order",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsImlhdCI6MTc1ODc1MjU4MiwiZXhwIjoxNzU4NzU2MTgyfQ.pekbuzAvxhR3TpuHw3WZ8KtqK8DhQMd1v7sFvkcrrWo"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List All Orders for admin",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTc1ODc2NjEzNCwiZXhwIjoxNzU4NzY5NzM0fQ.YYvCeuhLgD5rPcTgOmPaFS0fkASObBcEUuTIWTaAm2E"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List All Orders for admin Query",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTc1ODc2NjEzNCwiZXhwIjoxNzU4NzY5NzM0fQ.YYvCeuhLgD5rPcTgOmPaFS0fkASObBcEUuTIWTaAm2E"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090?status=PENDING",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090",
+									"query": [
+										{
+											"key": "status",
+											"value": "PENDING"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change Order Status",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTc1ODc2NjY0MiwiZXhwIjoxNzU4NzcwMjQyfQ.GnqvgNm0veztYZjrkxb25GvkECgAty4aY4QjdqLz8SQ"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"status\" : \"ACCEPTED\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090"
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List All OrdersUser for admin",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTc1ODc2NjEzNCwiZXhwIjoxNzU4NzY5NzM0fQ.YYvCeuhLgD5rPcTgOmPaFS0fkASObBcEUuTIWTaAm2E"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8090",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8090"
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Test Ruuning Port",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000"
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
