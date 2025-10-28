@@ -8,6 +8,10 @@ export const SignUpSchema = z.object({
   password: z.string().min(6),
 });
 
+export const SignInSchema = z.object({
+  email: z.string().email(),
+});
+
 export const AddressSchema = z.object({
   lineOne: z.string(),
   lineTwo: z.string().nullable(),

@@ -20,113 +20,204 @@ enum Role {
   USER
 }
 
-enum OrderEventStatus {
-  PENDING
-  ACCEPTED
-  OUT_FOR_DELIVERY
-  DELIVERED
-  CANCELLED
-}
-
 model User {
   id                     Int    @id @default(autoincrement())
   name                   String
   email                  String @unique
   password               String
   role                   Role   @default(USER)
-  defaultShippingAddress Int?
-  defaultBillingAddress  Int?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  addresses Address[]
-  cartItem  CartItem[]
-  orders    Order[]
+  // Relations
+  buildings Building[]
+  tokenBlacklist TokenBlacklist[]
 
   @@map("users")
 }
 
-model Address {
-  id      Int     @id @default(autoincrement())
-  lineOne String
-  lineTwo String?
-  city    String
-  country String
-  pincode String
-  userId  Int
-  user    User    @relation(fields: [userId], references: [id])
-
-  createdAt DateTime @default(now())
-  updateAt  DateTime @updatedAt
-
-  @@map("addresses")
-}
-
-model Product {
-  id          Int      @id @default(autoincrement())
-  name        String
-  description String   @db.Text
-  price       Decimal
-  tags        String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  cartItem CartItem[]
-  orders   OrderProduct[]
-
-  @@map("products")
-}
-
-model CartItem {
+// Token Blacklist for Logout
+model TokenBlacklist {
   id        Int      @id @default(autoincrement())
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id])
-  productId Int
-  product   Product  @relation(fields: [productId], references: [id])
-  quantity  Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  token     String   @unique @db.Text
+  userId    Int      @map("user_id")
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
 
-  @@map("cart_items")
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([token])
+  @@index([expiresAt])
+  @@map("token_blacklist")
 }
 
-model Order {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id])
-  netAmount Decimal
-  address   String
-  status    OrderEventStatus @default(PENDING)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+// ============================================
+// FUZZY ASSESSMENT TABLES
+// ============================================
 
-  products OrderProduct[]
-  events   OrderEvents[]
+// 1. TABLE: buildings
+// Menyimpan data bangunan dan hasil analisis fuzzy
+model Building {
+  id            Int       @id @default(autoincrement())
+  userId        Int?      @map("user_id")
+  nameBuilding  String    @map("name_building") @db.VarChar(255)
 
-  @@map("orders")
+  // Hasil Fuzzy Analysis
+  finalStatus   String    @map("final_status") @db.VarChar(50)
+  // Opsi: "Pemeliharaan", "Renovasi", "Pembongkaran"
+
+  fuzzyScore    Float?    @map("fuzzy_score") @db.DoublePrecision
+  // Output defuzzification (0.0 - 1.0)
+
+  // Metadata
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  user          User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  assessments   Assessment[]
+
+  @@map("buildings")
 }
 
-model OrderProduct {
-  id        Int      @id @default(autoincrement())
-  orderId   Int
-  order     Order    @relation(fields: [orderId], references: [id])
-  productId Int
-  product   Product  @relation(fields: [productId], references: [id])
-  quantity  Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+// 2. TABLE: assessments
+// Junction table antara Building dan Category
+model Assessment {
+  id          Int       @id @default(autoincrement())
+  buildingId  Int       @map("building_id")
+  categoryId  Int       @map("category_id")
 
-  @@map("order_products")
+  // Nilai aggregate category (average dari subcategories)
+  categoryValue Float?  @map("category_value") @db.DoublePrecision
+
+  // Metadata
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  // Relations
+  building    Building  @relation(fields: [buildingId], references: [id], onDelete: Cascade)
+  category    Category  @relation(fields: [categoryId], references: [id])
+  subcategoryAssessments SubcategoryAssessment[]
+
+  @@unique([buildingId, categoryId])
+  @@map("assessments")
 }
 
-model OrderEvents {
-  id        Int              @id @default(autoincrement())
-  orderId   Int
-  order     Order            @relation(fields: [orderId], references: [id])
-  status    OrderEventStatus @default(PENDING)
-  createdAt DateTime         @default(now())
-  updatedAt DateTime         @updatedAt
+// 3. TABLE: categories
+// Master data kategori (Arsitektural, Struktural, dll)
+model Category {
+  id            Int       @id @default(autoincrement())
+  name          String    @unique @db.VarChar(100)
+  description   String?   @db.Text
 
-  @@map("order_events")
+  // Order untuk UI display
+  displayOrder  Int       @map("display_order") @default(0)
+
+  // Metadata
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  subcategories Subcategory[]
+  assessments   Assessment[]
+
+  @@map("categories")
+}
+
+// 4. TABLE: subcategories
+// Master data subcategory (Atap, Langit-Langit, dll)
+model Subcategory {
+  id            Int       @id @default(autoincrement())
+  categoryId    Int       @map("category_id")
+  name          String    @db.VarChar(100)
+  description   String?   @db.Text
+
+  // Order untuk UI display
+  displayOrder  Int       @map("display_order") @default(0)
+
+  // Metadata
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  category      Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  items         Item[]
+  subcategoryAssessments SubcategoryAssessment[]
+
+  @@unique([categoryId, name])
+  @@map("subcategories")
+}
+
+// 5. TABLE: subcategory_assessments
+// Menyimpan nilai assessment per subcategory dalam building tertentu
+model SubcategoryAssessment {
+  id            Int       @id @default(autoincrement())
+  assessmentId  Int       @map("assessment_id")
+  subcategoryId Int       @map("subcategory_id")
+
+  // Nilai aggregate subcategory (average dari items)
+  subcategoryValue Float? @map("subcategory_value") @db.DoublePrecision
+
+  // Metadata
+  createdAt     DateTime  @default(now()) @map("created_at")
+
+  // Relations
+  assessment    Assessment  @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  subcategory   Subcategory @relation(fields: [subcategoryId], references: [id])
+  itemAssessments ItemAssessment[]
+
+  @@unique([assessmentId, subcategoryId])
+  @@map("subcategory_assessments")
+}
+
+// 6. TABLE: items
+// Master data item komponen (Balok, Rangka, dll)
+model Item {
+  id            Int       @id @default(autoincrement())
+  subcategoryId Int       @map("subcategory_id")
+  name          String    @db.VarChar(100)
+  description   String?   @db.Text
+
+  // Order untuk UI display
+  displayOrder  Int       @map("display_order") @default(0)
+
+  // Metadata
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  subcategory   Subcategory @relation(fields: [subcategoryId], references: [id], onDelete: Cascade)
+  itemAssessments ItemAssessment[]
+
+  @@unique([subcategoryId, name])
+  @@map("items")
+}
+
+// 7. TABLE: item_assessments
+// Menyimpan nilai kerusakan per item dalam assessment tertentu
+model ItemAssessment {
+  id                      Int       @id @default(autoincrement())
+  subcategoryAssessmentId Int       @map("subcategory_assessment_id")
+  itemId                  Int       @map("item_id")
+
+  // Nilai kerusakan item (persentase 0.0 - 1.0)
+  damageValue             Float     @map("damage_value") @db.DoublePrecision
+
+  // Optional: kondisi item dalam text
+  condition               String?   @db.VarChar(50)
+  // Opsi: "Baik", "Rusak Ringan", "Rusak Sedang", "Rusak Berat"
+
+  // Optional: catatan tambahan
+  notes                   String?   @db.Text
+
+  // Metadata
+  createdAt               DateTime  @default(now()) @map("created_at")
+
+  // Relations
+  subcategoryAssessment   SubcategoryAssessment @relation(fields: [subcategoryAssessmentId], references: [id], onDelete: Cascade)
+  item                    Item      @relation(fields: [itemId], references: [id])
+
+  @@unique([subcategoryAssessmentId, itemId])
+  @@map("item_assessments")
 }

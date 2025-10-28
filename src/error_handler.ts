@@ -16,18 +16,29 @@ export const errorHandler = (method: Function) => {
         exception = error;
       } else {
         if (error instanceof ZodError) {
+          // Format Zod validation errors to be user-friendly
+          const formattedErrors = error.issues.map((err: any) => {
+            return `${err.path.join('.')}: ${err.message}`;
+          }).join(', ');
+
           exception = new BadRequestException(
-            "Unprocessable Entity",
+            formattedErrors || "Data yang diberikan tidak valid",
             ErrorCode.UNPROCESSABLE_ENTITY
+          );
+        } else if (error.code === 'P2002') {
+          // Handle Prisma unique constraint violation
+          exception = new BadRequestException(
+            "User Already Exist",
+            ErrorCode.USER_ALREADY_EXISTS
           );
         } else {
             exception = new internalException(
-          "Womething went wrong",
+          "Something went wrong",
           error,
           ErrorCode.INTERNAL_EXCEPTION
         );
         }
-        
+
       }
       next(exception);
     }

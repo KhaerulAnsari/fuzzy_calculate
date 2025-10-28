@@ -3,6 +3,7 @@ import { PORT } from "./secretes.js";
 import rootRouter from "./routes/index.js";
 import { PrismaClient } from "./generated/prisma/client.js";
 import { errorMiddleware } from "./middlewares/errors.js";
+import { startTokenCleanupSchedule } from "./utils/cleanupTokens.js";
 
 const app: Express = express();
 
@@ -13,20 +14,20 @@ export const prismaClient = new PrismaClient({
   log: ["query"],
 }).$extends({
   result: {
-    address: {
-      formattedAddress: {
-        needs: {
-          lineOne: true,
-          lineTwo: true,
-          city: true,
-          country: true,
-          pincode: true,
-        },
-        compute: (addr) => {
-          return `${addr.lineOne}, ${addr.lineTwo}, ${addr.city}, ${addr.country}-${addr.pincode}`;
-        },
-      },
-    },
+    // address: {
+    //   formattedAddress: {
+    //     needs: {
+    //       lineOne: true,
+    //       lineTwo: true,
+    //       city: true,
+    //       country: true,
+    //       pincode: true,
+    //     },
+    //     compute: (addr) => {
+    //       return `${addr.lineOne}, ${addr.lineTwo}, ${addr.city}, ${addr.country}-${addr.pincode}`;
+    //     },
+    //   },
+    // },
   },
 });
 
@@ -38,4 +39,7 @@ app.use(errorMiddleware as any);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+
+  // Start token cleanup schedule
+  startTokenCleanupSchedule();
 });

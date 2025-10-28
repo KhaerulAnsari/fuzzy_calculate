@@ -7,9 +7,9 @@ interface ApiResponse {
   data?: any;
 }
 
-const sendSuccess = (res : Response, status = 200, message = "Success", data = null) => {
+const sendResponse = (res : Response, status = 200, message = "Success", data = null, error = false) => {
   const response: ApiResponse = {
-    error: false,
+    error: error,
     status: status,
     message: message
   };
@@ -21,4 +21,4 @@ const sendSuccess = (res : Response, status = 200, message = "Success", data = n
   return res.status(status).send(response);
 };
 
-export default sendSuccess;
+export default sendResponse;

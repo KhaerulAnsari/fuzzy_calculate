@@ -1,11 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
 import type { HttpException } from "../exceptions/root.js";
+import sendResponse from "../utils/response.js";
 
-export const errorMiddleware = (error: HttpException, req: Request, res: Response, next: NextFunction) => {
-    res.status(Number(error.statusCode)).json({
-        message: error.message,
-        errorCode: error.errorCode,
-        statusCode: error.statusCode,
-        errors: error.errors
-    })
+export const errorMiddleware = (error: HttpException, _req: Request, res: Response, _next: NextFunction) => {
+    sendResponse(res, error.statusCode, error.message, error.errors as any, true);
 }

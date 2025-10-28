@@ -1,18 +1,15 @@
 import { Router } from "express";
 import authRouter from "./auth.js";
-import productsRouter from "./product.js";
-import usersRouter from "./users.js";
-import cartRouters from "./cart.js";
-import orderRouters from "./orders.js";
+import fuzzyRoutes from "./fuzzy.js";
+import categoryRoutes from "./category.js";
+import subcategoryRoutes from "./subcategory.js";
 
 const rootRouter: Router = Router();
 
 rootRouter.use("/auth", authRouter);
-rootRouter.use("/products", productsRouter);
-rootRouter.use("/users", usersRouter);
-rootRouter.use("/carts", cartRouters);
-rootRouter.use("/orders", orderRouters);
-
+rootRouter.use("/fuzzy", fuzzyRoutes);
+rootRouter.use("/master", categoryRoutes);
+rootRouter.use("/master", subcategoryRoutes);
 export default rootRouter;
 
 /* 1. user management

@@ -11,7 +11,8 @@ const authMiddleware = async (
   next: NextFunction
 ) => {
   // 1. extrach the token from header
-  const token = req.headers.authorization;
+  const authorizationHeader = req.headers.authorization;
+  const token = authorizationHeader && authorizationHeader.split(" ")[1];
 
   // 2.if token is not present, throw an error of unauthorized
   if (!token) {
@@ -20,8 +21,23 @@ const authMiddleware = async (
 
   try {
     // 3. if the token is present, verify that token and extract the payload
-
     const payload = jwt.verify(String(token), JWT_SECRET) as any;
+
+    // 3.1. Check if token is blacklisted (logged out)
+    const blacklistedToken = await prismaClient.tokenBlacklist.findUnique({
+      where: {
+        token: String(token),
+      },
+    });
+
+    if (blacklistedToken) {
+      return next(
+        new UnauthorizedException(
+          "Token has been invalidated. Please login again.",
+          ErrorCode.UNAUTHORIZED
+        )
+      );
+    }
 
     // 4. if the token is valid, find the user with the extracted payload userId
     const user = await prismaClient.user.findFirst({
