@@ -221,3 +221,8 @@ model ItemAssessment {
   @@unique([subcategoryAssessmentId, itemId])
   @@map("item_assessments")
 }
+
+model Transaction {
+  id Int @id @default(autoincrement())
+  name String  @db.VarChar(100)
+}
