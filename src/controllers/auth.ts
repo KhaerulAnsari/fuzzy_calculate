@@ -54,38 +54,56 @@ export const signUpController = async (
 };
 
 export const loginController = async (req: Request, res: Response) => {
-  SignInSchema.parse(req.body);
+  try {
+    console.log('[LOGIN] Request received:', { email: req.body.email });
 
-  const { email, password } = req.body;
+    SignInSchema.parse(req.body);
 
-  if (!email || !password) {
-    throw Error("All fields are required");
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      console.error('[LOGIN] Missing email or password');
+      throw Error("All fields are required");
+    }
+
+    console.log('[LOGIN] Finding user with email:', email);
+    const user = await prismaClient.user.findFirst({
+      where: {
+        email: email,
+      },
+    });
+
+    if (!user) {
+      console.error('[LOGIN] User not found:', email);
+      throw new NotFoundException("Akun belum terdaftar.", ErrorCode.USER_NOT_FOUND);
+    }
+
+    console.log('[LOGIN] User found:', { id: user.id, email: user.email });
+
+    if (!compareSync(password, user.password)) {
+      console.error('[LOGIN] Password mismatch for user:', email);
+      throw new BadRequestException(
+        "Password tidak sesuai.",
+        ErrorCode.INCORRECT_PASSWORD
+      );
+    }
+
+    console.log('[LOGIN] Password verified, generating token...');
+    // const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: "1h" }); // bisa menambahkan data lainya yang ingin di generate
+    const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: "30m" });
+    console.log('[LOGIN] Token generated successfully');
+
+    const { password: _, ...userWithoutPassword } = user;
+
+    // res.send({ user: userWithoutPassword, token });
+
+    console.log('[LOGIN] Sending success response');
+    sendSuccess(res, 200, "User Login Successfully", {token} as any);
+  } catch (error) {
+    console.error('[LOGIN] ERROR:', error);
+    console.error('[LOGIN] ERROR Stack:', error instanceof Error ? error.stack : 'No stack trace');
+    throw error;
   }
-
-  const user = await prismaClient.user.findFirst({
-    where: {
-      email: email,
-    },
-  });
-
-  if (!user) {
-    throw new NotFoundException("Akun belum terdaftar.", ErrorCode.USER_NOT_FOUND);
-  }
-
-  if (!compareSync(password, user.password)) {
-    throw new BadRequestException(
-      "Password tidak sesuai.",
-      ErrorCode.INCORRECT_PASSWORD
-    );
-  }
-
-  // const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: "1h" }); // bisa menambahkan data lainya yang ingin di generate
-   const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: "30m" });
-  const { password: _, ...userWithoutPassword } = user;
-
-  // res.send({ user: userWithoutPassword, token });
-
-  sendSuccess(res, 200, "User Login Successfully", {token} as any);
 };
 
 // /me -> return the logged in user
