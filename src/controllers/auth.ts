@@ -78,8 +78,6 @@ export const loginController = async (req: Request, res: Response) => {
       throw new NotFoundException("Akun belum terdaftar.", ErrorCode.USER_NOT_FOUND);
     }
 
-    console.log('[LOGIN] User found:', { id: user.id, email: user.email });
-
     if (!compareSync(password, user.password)) {
       console.error('[LOGIN] Password mismatch for user:', email);
       throw new BadRequestException(
